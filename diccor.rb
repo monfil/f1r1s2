@@ -1,20 +1,32 @@
 def diccionary_sort
-  a = []
-  i = 0
+  array_words = []
   puts "Escribe una palabra: "
-  a[i] = gets.chomp
-  while a[i] != "\n"
-    i += 1
+  word = gets
+  is_word?(word, array_words) 
+end
+
+def write_another_word(new_array_words)
     puts 'Escribe otra palabra(o presiona "enter" para finalizar): '
-    a.push(gets)
+    word = gets
+    if word != "\n"
+      new_array_words = is_word?(word, new_array_words)
+    else
+      p new_array_words
+      list = new_array_words.sort_by { |i| i.capitalize}
+      p "¡Feicidades! Tu diccionario tiene #{new_array_words.length} palabras:"
+      puts list.sort
+    end
+end
+
+def is_word?(word, array_words)
+  if word =~ /[a-zA-Z]/ || word != "\n"
+    array_words.push(word)
+    write_another_word(array_words)
+  else
+    puts "No escribiste una palabra, vuelve a intentar."
+    write_another_word(array_words)
   end
-  a.delete(a.last)
-  a.each do |e|
-    
-  end
-  p "¡Feicidades! Tu diccionario tiene #{a.length} palabras:"
-  puts a.sort
+  array_words
 end
 
 diccionary_sort
-#a.delete(e) if e.integer?
